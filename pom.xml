@@ -8,10 +8,10 @@
 		<version>3.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.poly</groupId>
-	<artifactId>Lab5_PS39216</artifactId>
+	<groupId>poly.edu</groupId>
+	<artifactId>Lab3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Lab5_PS39216</name>
+	<name>Lab3</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

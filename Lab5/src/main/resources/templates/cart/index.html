@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lab5 Bài 5</title>
+</head>
+<body>
+<table border="1" style="width:100%">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="item: ${cart.items}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td>
+            <form th:action="@{|/cart/update/${item.id}|}" method="post">
+                <input type="hidden" name="id" th:value="${item.id}">
+                <input name="qty" type="number" th:value="${item.qty}" min="1" onblur="this.form.submit()">
+            </form>
+        </td>
+        <td th:text="${item.price * item.qty}"></td>
+        <td>
+            <a th:href="@{|/cart/remove/${item.id}|}">Remove</a>
+        </td>
+    </tr>
+</table>
+
+<p>Total Quantity: <span th:text="${cart.count}"></span></p>
+<p>Total Amount: <span th:text="${cart.amount}"></span></p>
+
+<a href="/cart/clear">Clear Cart</a> |
+<a href="/item/index">Add more</a>
+
+</body>
+</html>

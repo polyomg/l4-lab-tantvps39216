@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Sản phẩm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Danh sách Sản phẩm 📱</h1>
+
+    <div th:if="${session.username}" class="alert alert-info">
+        Chào mừng, <strong th:text="${session.username}">User</strong>!
+        <a th:href="@{/cart/view}" class="btn btn-sm btn-success float-right">Xem Giỏ hàng</a>
+    </div>
+    <div th:unless="${session.username}" class="alert alert-warning">
+        Bạn chưa đăng nhập. <a th:href="@{/account/login}">Đăng nhập ngay</a>.
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Tên Sản phẩm</th>
+            <th>Giá</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}">1</td>
+            <td th:text="${item.name}">Samsung Galaxy</td>
+            <td><span th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 2, 'POINT')}">10.00</span> $</td>
+            <td>
+                <a th:href="@{/cart/add/{id}(id=${item.id})}" class="btn btn-primary btn-sm">
+                    Thêm vào Giỏ 🛒
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
