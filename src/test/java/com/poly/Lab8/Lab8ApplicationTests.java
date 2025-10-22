@@ -1,13 +1,13 @@
-package com.poly.lab3;
+package com.poly.Lab8;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Lab3ApplicationTests {
+class Lab8ApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
