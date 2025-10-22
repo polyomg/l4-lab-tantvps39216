@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quản lý sản phẩm</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+    <h2 class="text-center text-primary">Quản lý sản phẩm</h2>
+
+    <div class="card p-4 shadow-sm mb-4">
+        <h4 class="text-success">Thêm/Sửa Sản phẩm</h4>
+        <form th:action="@{/products/save}" th:object="${product}" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Tên sản phẩm:</label>
+                    <input type="text" id="name" class="form-control" th:field="*{name}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="price" class="form-label">Giá:</label>
+                    <input type="number" id="price" class="form-control" th:field="*{price}" required>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label for="discount" class="form-label">Giảm giá (%):</label>
+                    <input type="number" id="discount" class="form-control" th:field="*{discount}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="stock" class="form-label">Số lượng tồn kho:</label>
+                    <input type="number" id="stock" class="form-control" th:field="*{stock}" required>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <label for="category" class="form-label">Danh mục:</label>
+                <select id="category" class="form-select" th:field="*{category}">
+                    <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+                </select>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </form>
+    </div>
+
+    <h3 class="text-center text-secondary">Danh sách sản phẩm</h3>
+    <table class="table table-bordered table-striped shadow-sm">
+        <thead class="table-primary">
+        <tr>
+            <th><a th:href="@{/products(sort='productID')}" class="text-decoration-none text-dark">ID</a></th>
+            <th><a th:href="@{/products(sort='name')}" class="text-decoration-none text-dark">Tên</a></th>
+            <th>Mô tả</th>
+            <th><a th:href="@{/products(sort='price')}" class="text-decoration-none text-dark">Giá</a></th>
+            <th><a th:href="@{/products(sort='discount')}" class="text-decoration-none text-dark">Giảm giá</a></th>
+            <th>Tồn kho</th>
+            <th>Danh mục</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${products.content}">
+            <td th:text="${p.productID}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.description}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.discount}"></td>
+            <td th:text="${p.stock}"></td>
+            <td th:text="${p.category.name}"></td>
+            <td>
+                <a th:href="@{/products/edit/{id}(id=${p.productID})}" class="btn btn-warning btn-sm">Sửa</a>
+                <a th:href="@{/products/delete/{id}(id=${p.productID})}" class="btn btn-danger btn-sm" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Thông tin phân trang -->
+    <ul class="list-group mt-3">
+        <li class="list-group-item"><strong>Số thực thể hiện tại:</strong> <span th:text="${products.numberOfElements}"></span></li>
+        <li class="list-group-item"><strong>Trang số:</strong> <span th:text="${products.number + 1}"></span></li>
+        <li class="list-group-item"><strong>Kích thước trang:</strong> <span th:text="${products.size}"></span></li>
+        <li class="list-group-item"><strong>Tổng số thực thể:</strong> <span th:text="${products.totalElements}"></span></li>
+        <li class="list-group-item"><strong>Tổng số trang:</strong> <span th:text="${products.totalPages}"></span></li>
+    </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
